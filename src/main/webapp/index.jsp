@@ -24,6 +24,6 @@
 <a href="/b7_form">Bai 7</a>
 <br>
 <hr>
-<a href="b8_list">Bai 8</a>
+<a href="b8_list">Bai 8 + 9</a>
 </body>
 </html>

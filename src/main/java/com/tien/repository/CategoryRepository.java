@@ -9,4 +9,11 @@ public interface CategoryRepository {
     void delete(int id);
     List<Category> findAll();
     Category findByName(String name);
+    Category findById(int id);
+
+    // kiểm tra tồn tại theo tên
+    boolean existsByCategoryName(String name);
+
+    // kiểm tra tồn tại tên, nhưng loại trừ một ID (khi sửa)
+    boolean existsByCategoryNameExcludingId(String name, int id);
 }

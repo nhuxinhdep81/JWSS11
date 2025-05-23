@@ -22,17 +22,20 @@
       <td><label for="categoryName">Tên danh mục:</label></td>
       <td>
         <form:input path="categoryName"/>
+        <br>
         <form:errors path="categoryName" cssStyle="color:red"/>
       </td>
     </tr>
 
     <tr>
-      <td><label for="status">Trạng thái:</label></td>
+      <td><label>Trạng thái:</label></td>
       <td>
-        <form:checkbox path="status" id="status"/> Hoạt động
+        <form:radiobutton path="status" value="true"/> Hoạt động
+        <form:radiobutton path="status" value="false"/> Không hoạt động
         <form:errors path="status" cssStyle="color:red"/>
       </td>
     </tr>
+
 
 
     <tr>

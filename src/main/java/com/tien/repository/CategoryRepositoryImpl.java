@@ -104,4 +104,63 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         }
         return null;
     }
+
+    @Override
+    public Category findById(int id) {
+        Connection conn = ConnectionDB.openConnection();
+        CallableStatement stmt = null;
+        try {
+            stmt = conn.prepareCall("{CALL find_category_by_id(?)}");
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Category cat = new Category();
+                cat.setId(rs.getInt("id"));
+                cat.setCategoryName(rs.getString("categoryName"));
+                cat.setStatus(rs.getBoolean("status"));
+                return cat;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, stmt);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean existsByCategoryName(String name) {
+        Connection conn = ConnectionDB.openConnection();
+        CallableStatement stmt = null;
+        try {
+            stmt = conn.prepareCall("{CALL check_category_name(?)}");
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, stmt);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existsByCategoryNameExcludingId(String name, int id) {
+        Connection conn = ConnectionDB.openConnection();
+        CallableStatement stmt = null;
+        try {
+            stmt = conn.prepareCall("{CALL check_category_name_exclude_id(?, ?)}");
+            stmt.setString(1, name);
+            stmt.setInt(2, id);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionDB.closeConnection(conn, stmt);
+        }
+        return false;
+    }
+
 }
